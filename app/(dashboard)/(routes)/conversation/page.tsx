@@ -20,7 +20,6 @@ import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
 import { Loader } from "@/components/loader";
 
-
 import { formSchema } from "./constants";
 
 const ConversationPage = () => {
@@ -133,3 +132,5 @@ const ConversationPage = () => {
     </div>
   );
 };
+
+export default ConversationPage;
