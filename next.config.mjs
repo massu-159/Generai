@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    domains: ['oaidalleapiprodscus.bolb.core.windows.net'],
+  },
+};
 
 export default nextConfig;
