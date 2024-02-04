@@ -15,10 +15,12 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { prompt } = body;
 
+    // ユーザーがログインしていない場合、またはユーザーが見つからない場合は、401を返す
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    // プロンプトがない場合は、400を返す
     if (!prompt) {
       return new NextResponse("Prompt is required", { status: 400 });
     }

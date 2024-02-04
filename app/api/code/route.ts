@@ -9,6 +9,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// 前提となるプロンプト
 const instructionMessage: OpenAI.Chat.ChatCompletionSystemMessageParam = {
   role: "system",
   content:
@@ -21,14 +22,17 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { messages } = body;
 
+    // ユーザーがログインしていない場合、またはユーザーが見つからない場合は、401を返す
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    // OpenAI APIキーが設定されていない場合は、500を返す
     if (!openai.apiKey) {
       return new NextResponse("OpenAI API Key not configured.", { status: 500 });
     }
 
+    // メッセージがない場合は、400を返す
     if (!messages) {
       return new NextResponse("Messages are required", { status: 400 });
     }
@@ -36,6 +40,7 @@ export async function POST(req: Request) {
     const freeTrial = await checkApiLimit();
     const isPro = await checkSubscription();
 
+    // プロモーション期間中またはプロのユーザーの場合は、API制限を増やす
     if (!freeTrial && !isPro) {
       return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
     }
@@ -45,6 +50,7 @@ export async function POST(req: Request) {
       messages: [instructionMessage, ...messages],
     });
 
+    // プロモーション期間中またはプロのユーザーの場合は、API制限を増やす
     if (!isPro) {
       await incrementApiLimit();
     }

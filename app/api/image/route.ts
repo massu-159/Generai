@@ -17,22 +17,27 @@ export async function POST(
     const body = await req.json();
     const { prompt, amount = 1, resolution = "512x512" } = body;
 
+    // ユーザーがログインしていない場合、またはユーザーが見つからない場合は、401を返す
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    // OpenAI APIキーが設定されていない場合は、500を返す
     if (!openai.apiKey) {
       return new NextResponse("OpenAI API Key not configured.", { status: 500 });
     }
 
+    // プロンプトがない場合は、400を返す
     if (!prompt) {
       return new NextResponse("Prompt is required", { status: 400 });
     }
 
+    // 量がない場合は、400を返す
     if (!amount) {
       return new NextResponse("Amount is required", { status: 400 });
     }
 
+    // 解像度がない場合は、400を返す
     if (!resolution) {
       return new NextResponse("Resolution is required", { status: 400 });
     }

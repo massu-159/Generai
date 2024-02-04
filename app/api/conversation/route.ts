@@ -15,14 +15,17 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { messages } = body;
 
+    // ユーザーがログインしていない場合、またはユーザーが見つからない場合は、401を返す
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    // OpenAI APIキーが設定されていない場合は、500を返す
     if (!openai.apiKey) {
       return new NextResponse("OpenAI API Key not configured.", { status: 500 });
     }
 
+    // メッセージがない場合は、400を返す
     if (!messages) {
       return new NextResponse("Messages are required", { status: 400 });
     }
