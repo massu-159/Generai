@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Generai
 
-## Getting Started
+AIを活用した生成プラットフォーム
 
-First, run the development server:
+フレームワークはNext.jsを利用。詳しくは下記に記載。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+[openAI](https://openai.com/), [Replicate](https://replicate.com/)のAPIを利用しています。(お金がかかるので、現在は停止中)
+
+openaiライブラリ **v4** を使用しています。
+
+認証機能に[clerk](https://clerk.com/)を利用。
+
+サーバレスDBサービスの[planetscale](https://planetscale.com/)を利用。
+
+[stripe](https://stripe.com/jp)による決済。
+
+ AIを活用したチャット形式の問い合わせ機能 [crisp](https://crisp.chat/en/)。
+
+urlはこちら
+https://github.com/massu-159/Generai
+
+
+## 目次
+1. 環境構築
+2. アプリケーションの仕様
+3. 環境変数
+
+## 1. 環境構築
+
+### 1-1. ライブラリ インストール
+
+```
+npm install
+# または
+yarn
+# または
+pnpm install
+# または
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1-2. アプリケーション実行
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm start
+# または
+yarn start
+# または
+pnpm start
+# または
+bun start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 2. アプリケーションの仕様
 
-## Learn More
+### 2-1. 仕様
+- 認証(Clerk)
+  - サインアップ
+  - ログイン
+  - ログアウト
+- プラン
+  - free
+    - 合計5回までの生成
+  - pro
+    - 無制限
+- 生成AI
+  - チャット
+  - コード生成
+  - 画像生成
+  - 音楽生成
+  - 動画生成
+- 問い合わせ(Crisp)
+  - チャット形式
+- 決済(Stripe)
+  - サブスクリプション登録
 
-To learn more about Next.js, take a look at the following resources:
+### 2-2. 構成技術
+```
+@clerk/nextjs: ^4.29.5
+@hookform/resolvers: ^3.3.4
+axios: ^1.6.7
+clsx: ^2.1.0
+crisp-sdk-web: ^1.0.21
+lucide-react: ^0.321.0
+next: 14.1.0
+openai: ^4.26.0
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+react: ^18
+react-hook-form: ^7.50.0
+react-hot-toast: ^2.4.1
+react-markdown: ^9.0.1
+replicate: ^0.25.2
+stripe: ^14.14.0
+typewriter-effect: ^2.21.0
+zod: ^3.22.4
+zustand: ^4.5.0
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+eslint: ^8
+prisma: ^5.9.1
+tailwindcss: ^3.3.0
+typescript: ^5
+```
 
-## Deploy on Vercel
+## 3. 環境変数
+```
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=XXXXXXXXXXXXXXX
+CLERK_SECRET_KEY=XXXXXXXXXXXXXXX
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+OPENAI_API_KEY=XXXXXXXXXXXXXXX
+REPLICATE_API_TOKEN=XXXXXXXXXXXXXXX
+
+DATABASE_URL=XXXXXXXXXXXXXX
+
+STRIPE_API_KEY=XXXXXXXXXXXXXXX
+STRIPE_WEBHOOK_SECRET=XXXXXXXXXXX
+
+NEXT_PUBLIC_APP_URL=http://localhost:3000
