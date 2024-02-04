@@ -1,5 +1,7 @@
 # Generai
 
+<video src="https://github.com/massu-159/Generai/assets/75517054/48e602d6-1e0a-4a16-8e69-1a16a63fdca2" autoplay muted loop playsinline width="300"></video>
+
 AIを活用した生成プラットフォーム
 
 フレームワークはNext.jsを利用。詳しくは下記に記載。
